@@ -1,0 +1,6 @@
+delegation-control-bench
+Copyright (c) 2026 Staford Titus Selvaraj
+
+vendor/maestro-validation/ is copied from the MAESTRO Threat Analyzer
+(https://github.com/CloudSecurityAlliance/MAESTRO), licensed under the MIT
+License, Copyright (c) 2024 Distributed Apps.
