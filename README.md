@@ -1,5 +1,7 @@
 # delegation-control-bench
 
+[![test](https://github.com/stafordtituss/delegation-control-bench/actions/workflows/test.yml/badge.svg)](https://github.com/stafordtituss/delegation-control-bench/actions/workflows/test.yml)
+
 Where do agent delegation controls actually live, and what can evidence prove afterwards?
 
 This benchmark runs the 16-case delegation suite from the MAESTRO threat-to-control validation module ([CloudSecurityAlliance/MAESTRO#12](https://github.com/CloudSecurityAlliance/MAESTRO/pull/12)) through:
