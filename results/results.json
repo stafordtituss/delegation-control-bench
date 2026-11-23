@@ -1,0 +1,1251 @@
+{
+  "kind": "delegation-control-bench.results",
+  "version": 1,
+  "tools": {
+    "cedar": "4.15.0",
+    "amep": "0.3.0-alpha.1",
+    "scenarios": "MAESTRO validation module (vendored)"
+  },
+  "scenarioCount": 16,
+  "enforcement": {
+    "rows": [
+      {
+        "scenarioId": "DEL-01",
+        "title": "Valid narrowing delegation",
+        "expected": "allow",
+        "decisions": {
+          "final-token": {
+            "decision": "allow",
+            "policies": [
+              "in-scope"
+            ],
+            "outcome": "pass"
+          },
+          "full-chain": {
+            "decision": "allow",
+            "policies": [
+              "in-scope"
+            ],
+            "outcome": "pass"
+          }
+        }
+      },
+      {
+        "scenarioId": "DEL-02",
+        "title": "Delegated mandate widens the operation",
+        "expected": "deny",
+        "decisions": {
+          "final-token": {
+            "decision": "allow",
+            "policies": [
+              "in-scope"
+            ],
+            "outcome": "fail"
+          },
+          "full-chain": {
+            "decision": "deny",
+            "policies": [
+              "chain-unverified"
+            ],
+            "outcome": "pass"
+          }
+        }
+      },
+      {
+        "scenarioId": "DEL-03",
+        "title": "Request widens the resource",
+        "expected": "deny",
+        "decisions": {
+          "final-token": {
+            "decision": "deny",
+            "policies": [],
+            "outcome": "pass"
+          },
+          "full-chain": {
+            "decision": "deny",
+            "policies": [],
+            "outcome": "pass"
+          }
+        }
+      },
+      {
+        "scenarioId": "DEL-04",
+        "title": "Request widens the purpose",
+        "expected": "deny",
+        "decisions": {
+          "final-token": {
+            "decision": "deny",
+            "policies": [],
+            "outcome": "pass"
+          },
+          "full-chain": {
+            "decision": "deny",
+            "policies": [],
+            "outcome": "pass"
+          }
+        }
+      },
+      {
+        "scenarioId": "DEL-05",
+        "title": "Re-delegation beyond the permitted depth",
+        "expected": "deny",
+        "decisions": {
+          "final-token": {
+            "decision": "allow",
+            "policies": [
+              "in-scope"
+            ],
+            "outcome": "fail"
+          },
+          "full-chain": {
+            "decision": "deny",
+            "policies": [
+              "depth-exceeded"
+            ],
+            "outcome": "pass"
+          }
+        }
+      },
+      {
+        "scenarioId": "DEL-06",
+        "title": "Mandate expired before the commit boundary",
+        "expected": "deny",
+        "decisions": {
+          "final-token": {
+            "decision": "deny",
+            "policies": [],
+            "outcome": "pass"
+          },
+          "full-chain": {
+            "decision": "deny",
+            "policies": [],
+            "outcome": "pass"
+          }
+        }
+      },
+      {
+        "scenarioId": "DEL-07",
+        "title": "Revoked mandate with a still-valid signed token",
+        "expected": "deny",
+        "decisions": {
+          "final-token": {
+            "decision": "deny",
+            "policies": [
+              "revoked"
+            ],
+            "outcome": "pass"
+          },
+          "full-chain": {
+            "decision": "deny",
+            "policies": [
+              "revoked"
+            ],
+            "outcome": "pass"
+          }
+        }
+      },
+      {
+        "scenarioId": "DEL-08",
+        "title": "Valid identity without any principal mandate",
+        "expected": "deny",
+        "decisions": {
+          "final-token": {
+            "decision": "deny",
+            "policies": [
+              "chain-unverified"
+            ],
+            "outcome": "pass"
+          },
+          "full-chain": {
+            "decision": "deny",
+            "policies": [
+              "chain-unverified"
+            ],
+            "outcome": "pass"
+          }
+        }
+      },
+      {
+        "scenarioId": "DEL-09",
+        "title": "Missing signed ancestor link",
+        "expected": "deny",
+        "decisions": {
+          "final-token": {
+            "decision": "allow",
+            "policies": [
+              "in-scope"
+            ],
+            "outcome": "fail"
+          },
+          "full-chain": {
+            "decision": "deny",
+            "policies": [
+              "chain-unverified"
+            ],
+            "outcome": "pass"
+          }
+        }
+      },
+      {
+        "scenarioId": "DEL-10",
+        "title": "Conflicting records of the effective scope",
+        "expected": "allow",
+        "decisions": {
+          "final-token": {
+            "decision": "allow",
+            "policies": [
+              "in-scope"
+            ],
+            "outcome": "pass"
+          },
+          "full-chain": {
+            "decision": "allow",
+            "policies": [
+              "in-scope"
+            ],
+            "outcome": "pass"
+          }
+        }
+      },
+      {
+        "scenarioId": "DEL-11",
+        "title": "Authorized in-scope action (negative control)",
+        "expected": "allow",
+        "decisions": {
+          "final-token": {
+            "decision": "allow",
+            "policies": [
+              "in-scope"
+            ],
+            "outcome": "pass"
+          },
+          "full-chain": {
+            "decision": "allow",
+            "policies": [
+              "in-scope"
+            ],
+            "outcome": "pass"
+          }
+        }
+      },
+      {
+        "scenarioId": "DEL-12",
+        "title": "Revocation between planning and execution (TOCTOU)",
+        "expected": "deny",
+        "decisions": {
+          "final-token": {
+            "decision": "deny",
+            "policies": [
+              "revoked"
+            ],
+            "outcome": "pass"
+          },
+          "full-chain": {
+            "decision": "deny",
+            "policies": [
+              "revoked"
+            ],
+            "outcome": "pass"
+          }
+        }
+      },
+      {
+        "scenarioId": "DEL-13",
+        "title": "Allowed decision without execution evidence",
+        "expected": "allow",
+        "decisions": {
+          "final-token": {
+            "decision": "allow",
+            "policies": [
+              "in-scope"
+            ],
+            "outcome": "pass"
+          },
+          "full-chain": {
+            "decision": "allow",
+            "policies": [
+              "in-scope"
+            ],
+            "outcome": "pass"
+          }
+        }
+      },
+      {
+        "scenarioId": "VC-03",
+        "title": "Presentation for one tool replayed to another",
+        "expected": "deny",
+        "decisions": {
+          "final-token": {
+            "decision": "deny",
+            "policies": [
+              "credential-invalid"
+            ],
+            "outcome": "pass"
+          },
+          "full-chain": {
+            "decision": "deny",
+            "policies": [
+              "credential-invalid"
+            ],
+            "outcome": "pass"
+          }
+        }
+      },
+      {
+        "scenarioId": "EPH-01",
+        "title": "Short-lived agents share one principal limit",
+        "expected": "deny",
+        "decisions": {
+          "final-token": {
+            "decision": "allow",
+            "policies": [
+              "in-scope"
+            ],
+            "outcome": "fail"
+          },
+          "full-chain": {
+            "decision": "deny",
+            "policies": [
+              "quota-exceeded"
+            ],
+            "outcome": "pass"
+          }
+        }
+      },
+      {
+        "scenarioId": "PI-01",
+        "title": "Tool output instructs a scope expansion",
+        "expected": "deny",
+        "decisions": {
+          "final-token": {
+            "decision": "deny",
+            "policies": [],
+            "outcome": "pass"
+          },
+          "full-chain": {
+            "decision": "deny",
+            "policies": [],
+            "outcome": "pass"
+          }
+        }
+      }
+    ],
+    "summaries": [
+      {
+        "config": "final-token",
+        "pass": 12,
+        "fail": 4,
+        "total": 16,
+        "falseAllow": [
+          "DEL-02",
+          "DEL-05",
+          "DEL-09",
+          "EPH-01"
+        ],
+        "falseDeny": []
+      },
+      {
+        "config": "full-chain",
+        "pass": 16,
+        "fail": 0,
+        "total": 16,
+        "falseAllow": [],
+        "falseDeny": []
+      }
+    ]
+  },
+  "evidence": {
+    "byVariant": {
+      "reference": {
+        "cases": 16,
+        "agree": 10,
+        "maestro": {
+          "preserved": 13,
+          "violated": 0,
+          "unresolved": 3
+        },
+        "amep": {
+          "preserved": 9,
+          "violated": 4,
+          "unresolved": 3
+        }
+      },
+      "pdp-log-only": {
+        "cases": 16,
+        "agree": 12,
+        "maestro": {
+          "preserved": 0,
+          "violated": 0,
+          "unresolved": 16
+        },
+        "amep": {
+          "preserved": 0,
+          "violated": 4,
+          "unresolved": 12
+        }
+      },
+      "recorded-bypass": {
+        "cases": 12,
+        "agree": 11,
+        "maestro": {
+          "preserved": 0,
+          "violated": 11,
+          "unresolved": 1
+        },
+        "amep": {
+          "preserved": 0,
+          "violated": 12,
+          "unresolved": 0
+        }
+      },
+      "unrecorded-bypass": {
+        "cases": 12,
+        "agree": 8,
+        "maestro": {
+          "preserved": 0,
+          "violated": 11,
+          "unresolved": 1
+        },
+        "amep": {
+          "preserved": 3,
+          "violated": 7,
+          "unresolved": 2
+        }
+      }
+    },
+    "rows": [
+      {
+        "scenarioId": "DEL-01",
+        "variant": "reference",
+        "maestro": "preserved",
+        "maestroBasis": [
+          "evidence.effect_within_authority"
+        ],
+        "amep": {
+          "outcome": "preserved",
+          "invariant": "-",
+          "reason": "continuity preserved"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-01",
+        "variant": "pdp-log-only",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.no_effect_observation"
+        ],
+        "amep": {
+          "outcome": "unresolved",
+          "invariant": "I7",
+          "reason": "no executed-effect receipt"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-02",
+        "variant": "reference",
+        "maestro": "preserved",
+        "maestroBasis": [
+          "evidence.no_effect"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I1",
+          "reason": "m-child: actions widened"
+        },
+        "agree": false,
+        "difference": "unit of evaluation: AMEP judges the attempted invocation, so invoking under widened (I1) or revoked (I6) authority is a violation even though nothing executed; the reference verifier judges only the effect"
+      },
+      {
+        "scenarioId": "DEL-02",
+        "variant": "pdp-log-only",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.no_effect_observation"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I1",
+          "reason": "m-child: actions widened"
+        },
+        "agree": false,
+        "difference": "unit of evaluation: AMEP judges the attempted invocation, so invoking under widened (I1) or revoked (I6) authority is a violation even though nothing executed; the reference verifier judges only the effect"
+      },
+      {
+        "scenarioId": "DEL-02",
+        "variant": "recorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "delegation.link_exceeds_parent",
+          "delegation.operation_outside_scope"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I11",
+          "reason": "effect despite deny"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-02",
+        "variant": "unrecorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "delegation.link_exceeds_parent",
+          "delegation.operation_outside_scope"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I1",
+          "reason": "m-child: actions widened"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-03",
+        "variant": "reference",
+        "maestro": "preserved",
+        "maestroBasis": [
+          "evidence.no_effect"
+        ],
+        "amep": {
+          "outcome": "preserved",
+          "invariant": "-",
+          "reason": "continuity preserved"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-03",
+        "variant": "pdp-log-only",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.no_effect_observation"
+        ],
+        "amep": {
+          "outcome": "unresolved",
+          "invariant": "I7",
+          "reason": "no executed-effect receipt"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-03",
+        "variant": "recorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "delegation.resource_outside_scope"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I11",
+          "reason": "effect despite deny"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-03",
+        "variant": "unrecorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "delegation.resource_outside_scope"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I2",
+          "reason": "resource outside claims"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-04",
+        "variant": "reference",
+        "maestro": "preserved",
+        "maestroBasis": [
+          "evidence.no_effect"
+        ],
+        "amep": {
+          "outcome": "preserved",
+          "invariant": "-",
+          "reason": "continuity preserved"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-04",
+        "variant": "pdp-log-only",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.no_effect_observation"
+        ],
+        "amep": {
+          "outcome": "unresolved",
+          "invariant": "I7",
+          "reason": "no executed-effect receipt"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-04",
+        "variant": "recorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "delegation.purpose_outside_scope"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I11",
+          "reason": "effect despite deny"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-04",
+        "variant": "unrecorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "delegation.purpose_outside_scope"
+        ],
+        "amep": {
+          "outcome": "preserved",
+          "invariant": "-",
+          "reason": "continuity preserved"
+        },
+        "agree": false,
+        "difference": "AMEP effect receipts carry no purpose, so a purpose violation is invisible from the effect"
+      },
+      {
+        "scenarioId": "DEL-05",
+        "variant": "reference",
+        "maestro": "preserved",
+        "maestroBasis": [
+          "evidence.no_effect"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I1",
+          "reason": "m-grand: parent may not be delegated (depth 0)"
+        },
+        "agree": false,
+        "difference": "unit of evaluation: AMEP judges the attempted invocation, so invoking under widened (I1) or revoked (I6) authority is a violation even though nothing executed; the reference verifier judges only the effect"
+      },
+      {
+        "scenarioId": "DEL-05",
+        "variant": "pdp-log-only",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.no_effect_observation"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I1",
+          "reason": "m-grand: parent may not be delegated (depth 0)"
+        },
+        "agree": false,
+        "difference": "unit of evaluation: AMEP judges the attempted invocation, so invoking under widened (I1) or revoked (I6) authority is a violation even though nothing executed; the reference verifier judges only the effect"
+      },
+      {
+        "scenarioId": "DEL-05",
+        "variant": "recorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "delegation.depth_exceeded"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I11",
+          "reason": "effect despite deny"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-05",
+        "variant": "unrecorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "delegation.depth_exceeded"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I1",
+          "reason": "m-grand: parent may not be delegated (depth 0)"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-06",
+        "variant": "reference",
+        "maestro": "preserved",
+        "maestroBasis": [
+          "evidence.no_effect"
+        ],
+        "amep": {
+          "outcome": "preserved",
+          "invariant": "-",
+          "reason": "continuity preserved"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-06",
+        "variant": "pdp-log-only",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.no_effect_observation"
+        ],
+        "amep": {
+          "outcome": "unresolved",
+          "invariant": "I7",
+          "reason": "no executed-effect receipt"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-06",
+        "variant": "recorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "delegation.expired"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I11",
+          "reason": "effect despite deny"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-06",
+        "variant": "unrecorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "delegation.expired"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I2",
+          "reason": "after validity"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-07",
+        "variant": "reference",
+        "maestro": "preserved",
+        "maestroBasis": [
+          "evidence.no_effect"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I6",
+          "reason": "ancestor revoked before invocation"
+        },
+        "agree": false,
+        "difference": "unit of evaluation: AMEP judges the attempted invocation, so invoking under widened (I1) or revoked (I6) authority is a violation even though nothing executed; the reference verifier judges only the effect"
+      },
+      {
+        "scenarioId": "DEL-07",
+        "variant": "pdp-log-only",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.no_effect_observation"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I6",
+          "reason": "ancestor revoked before invocation"
+        },
+        "agree": false,
+        "difference": "unit of evaluation: AMEP judges the attempted invocation, so invoking under widened (I1) or revoked (I6) authority is a violation even though nothing executed; the reference verifier judges only the effect"
+      },
+      {
+        "scenarioId": "DEL-07",
+        "variant": "recorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "delegation.revoked"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I11",
+          "reason": "effect despite deny"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-07",
+        "variant": "unrecorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "delegation.revoked"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I6",
+          "reason": "ancestor revoked before invocation"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-08",
+        "variant": "reference",
+        "maestro": "preserved",
+        "maestroBasis": [
+          "evidence.no_effect"
+        ],
+        "amep": {
+          "outcome": "unresolved",
+          "invariant": "I7",
+          "reason": "no root mandate"
+        },
+        "agree": false,
+        "difference": "AMEP needs a root mandate to evaluate an invocation and reports unresolved without one, even when nothing executed"
+      },
+      {
+        "scenarioId": "DEL-08",
+        "variant": "pdp-log-only",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.no_effect_observation"
+        ],
+        "amep": {
+          "outcome": "unresolved",
+          "invariant": "I7",
+          "reason": "no root mandate"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-08",
+        "variant": "recorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "delegation.no_principal_mandate"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I11",
+          "reason": "effect despite deny"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-08",
+        "variant": "unrecorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "delegation.no_principal_mandate"
+        ],
+        "amep": {
+          "outcome": "unresolved",
+          "invariant": "I7",
+          "reason": "no root mandate"
+        },
+        "agree": false,
+        "difference": "with no mandate at all, AMEP reports no root mandate (unresolved); the MAESTRO verifier treats the authoritative policy as showing no authority exists"
+      },
+      {
+        "scenarioId": "DEL-09",
+        "variant": "reference",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.missing_link"
+        ],
+        "amep": {
+          "outcome": "unresolved",
+          "invariant": "I7",
+          "reason": "no root mandate"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-09",
+        "variant": "pdp-log-only",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.missing_link"
+        ],
+        "amep": {
+          "outcome": "unresolved",
+          "invariant": "I7",
+          "reason": "no root mandate"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-09",
+        "variant": "recorded-bypass",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.missing_link"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I11",
+          "reason": "effect despite deny"
+        },
+        "agree": false,
+        "difference": "AMEP settles a signed deny contradicted by an effect (I11) without needing the chain; the MAESTRO verifier requires every signed link first"
+      },
+      {
+        "scenarioId": "DEL-09",
+        "variant": "unrecorded-bypass",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.missing_link"
+        ],
+        "amep": {
+          "outcome": "unresolved",
+          "invariant": "I7",
+          "reason": "no root mandate"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-10",
+        "variant": "reference",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.conflicting_records"
+        ],
+        "amep": {
+          "outcome": "preserved",
+          "invariant": "-",
+          "reason": "continuity preserved"
+        },
+        "agree": false,
+        "difference": "conflicting records are not representable in an AMEP packet"
+      },
+      {
+        "scenarioId": "DEL-10",
+        "variant": "pdp-log-only",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.no_effect_observation"
+        ],
+        "amep": {
+          "outcome": "unresolved",
+          "invariant": "I7",
+          "reason": "no executed-effect receipt"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-11",
+        "variant": "reference",
+        "maestro": "preserved",
+        "maestroBasis": [
+          "evidence.effect_within_authority"
+        ],
+        "amep": {
+          "outcome": "preserved",
+          "invariant": "-",
+          "reason": "continuity preserved"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-11",
+        "variant": "pdp-log-only",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.no_effect_observation"
+        ],
+        "amep": {
+          "outcome": "unresolved",
+          "invariant": "I7",
+          "reason": "no executed-effect receipt"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-12",
+        "variant": "reference",
+        "maestro": "preserved",
+        "maestroBasis": [
+          "evidence.no_effect"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I6",
+          "reason": "ancestor revoked before invocation"
+        },
+        "agree": false,
+        "difference": "unit of evaluation: AMEP judges the attempted invocation, so invoking under widened (I1) or revoked (I6) authority is a violation even though nothing executed; the reference verifier judges only the effect"
+      },
+      {
+        "scenarioId": "DEL-12",
+        "variant": "pdp-log-only",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.no_effect_observation"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I6",
+          "reason": "ancestor revoked before invocation"
+        },
+        "agree": false,
+        "difference": "unit of evaluation: AMEP judges the attempted invocation, so invoking under widened (I1) or revoked (I6) authority is a violation even though nothing executed; the reference verifier judges only the effect"
+      },
+      {
+        "scenarioId": "DEL-12",
+        "variant": "recorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "delegation.revoked"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I11",
+          "reason": "effect despite deny"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-12",
+        "variant": "unrecorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "delegation.revoked"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I6",
+          "reason": "ancestor revoked before invocation"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-13",
+        "variant": "reference",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.no_effect_observation"
+        ],
+        "amep": {
+          "outcome": "unresolved",
+          "invariant": "I7",
+          "reason": "no executed-effect receipt"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "DEL-13",
+        "variant": "pdp-log-only",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.no_effect_observation"
+        ],
+        "amep": {
+          "outcome": "unresolved",
+          "invariant": "I7",
+          "reason": "no executed-effect receipt"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "VC-03",
+        "variant": "reference",
+        "maestro": "preserved",
+        "maestroBasis": [
+          "evidence.no_effect"
+        ],
+        "amep": {
+          "outcome": "preserved",
+          "invariant": "-",
+          "reason": "continuity preserved"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "VC-03",
+        "variant": "pdp-log-only",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.no_effect_observation"
+        ],
+        "amep": {
+          "outcome": "unresolved",
+          "invariant": "I7",
+          "reason": "no executed-effect receipt"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "VC-03",
+        "variant": "recorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "credential.audience_mismatch"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I11",
+          "reason": "effect despite deny"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "VC-03",
+        "variant": "unrecorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "credential.audience_mismatch"
+        ],
+        "amep": {
+          "outcome": "preserved",
+          "invariant": "-",
+          "reason": "continuity preserved"
+        },
+        "agree": false,
+        "difference": "credential presentations are outside AMEP’s scope"
+      },
+      {
+        "scenarioId": "EPH-01",
+        "variant": "reference",
+        "maestro": "preserved",
+        "maestroBasis": [
+          "evidence.no_effect"
+        ],
+        "amep": {
+          "outcome": "preserved",
+          "invariant": "-",
+          "reason": "continuity preserved"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "EPH-01",
+        "variant": "pdp-log-only",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.no_effect_observation"
+        ],
+        "amep": {
+          "outcome": "unresolved",
+          "invariant": "I7",
+          "reason": "no executed-effect receipt"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "EPH-01",
+        "variant": "recorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "quota.principal_limit_exceeded"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I11",
+          "reason": "effect despite deny"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "EPH-01",
+        "variant": "unrecorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "quota.principal_limit_exceeded"
+        ],
+        "amep": {
+          "outcome": "preserved",
+          "invariant": "-",
+          "reason": "continuity preserved"
+        },
+        "agree": false,
+        "difference": "AMEP has no principal-level action count across agents"
+      },
+      {
+        "scenarioId": "PI-01",
+        "variant": "reference",
+        "maestro": "preserved",
+        "maestroBasis": [
+          "evidence.no_effect"
+        ],
+        "amep": {
+          "outcome": "preserved",
+          "invariant": "-",
+          "reason": "continuity preserved"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "PI-01",
+        "variant": "pdp-log-only",
+        "maestro": "unresolved",
+        "maestroBasis": [
+          "evidence.no_effect_observation"
+        ],
+        "amep": {
+          "outcome": "unresolved",
+          "invariant": "I7",
+          "reason": "no executed-effect receipt"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "PI-01",
+        "variant": "recorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "delegation.operation_outside_scope",
+          "delegation.audience_outside_scope"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I11",
+          "reason": "effect despite deny"
+        },
+        "agree": true
+      },
+      {
+        "scenarioId": "PI-01",
+        "variant": "unrecorded-bypass",
+        "maestro": "violated",
+        "maestroBasis": [
+          "evidence.effect_outside_authority",
+          "delegation.operation_outside_scope",
+          "delegation.audience_outside_scope"
+        ],
+        "amep": {
+          "outcome": "violated",
+          "invariant": "I2",
+          "reason": "action outside claims"
+        },
+        "agree": true
+      }
+    ],
+    "sensitivity": {
+      "question": "Does a signed pre-execution deny, with no observation of the effect, establish that nothing executed?",
+      "cases": 12,
+      "amepPreservedWhenFailModeUnknown": 0,
+      "amepPreservedWhenFailClosed": 12,
+      "referencePreserved": 0
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "delegation-control-bench",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Where do agent delegation controls live? Deterministic scenarios run against policy-engine configurations and evidence verifiers.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Staford Titus Selvaraj",
+  "scripts": {
+    "bench": "UPDATE_RESULTS=1 vitest run",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@cedar-policy/cedar-wasm": "4.15.0",
+    "@stafordtituss/amep": "0.3.0-alpha.1",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "20.19.13",
+    "tsx": "4.20.5",
+    "typescript": "5.9.2",
+    "vitest": "3.2.4"
+  }
+}
