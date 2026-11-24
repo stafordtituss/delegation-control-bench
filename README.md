@@ -29,7 +29,7 @@ Neither configuration blocked a valid request.
 
 **2. The delegation logic lives in the PEP, not in the policy language.** Cedar evaluated every decision, but intersecting scopes across a variable-length chain, matching data-driven resource patterns (Cedar's `like` needs literal patterns), and counting a principal's actions across agents all had to be computed by the PEP and passed in as context. The table "Where each control lives" in the results lists this per control. In practice, a policy engine alone does not make delegation safe; the code that builds its input carries most of the weight.
 
-**3. Decision logs alone never prove that authority was preserved.** With only policy-decision records and no independent observation of the effect, the reference verifier returned `unresolved` for 16/16 scenarios. AMEP returned `preserved` for none of them, unless the enforcement point declared itself fail-closed (finding 5).
+**3. Decision logs alone never prove that authority was preserved.** With only policy-decision records and no independent observation of the effect, the reference verifier returned `unresolved` for 16/16 scenarios. AMEP returned `preserved` for none of them, whether or not the enforcement point declared itself fail-closed (finding 5).
 
 **4. Two evidence verifiers agreed on 41 of 56 cases, and every disagreement has one of four causes:**
 - **Unit of evaluation (8 cases).** AMEP judges the *attempted invocation*, so invoking under widened or revoked authority is `violated` even when an observer confirms nothing executed. The reference verifier judges only the *effect*. Both are defensible; a specification has to say which question it answers.
@@ -37,7 +37,7 @@ Neither configuration blocked a valid request.
 - **Missing mandate (2).** With no mandate at all, AMEP cannot evaluate and returns `unresolved`.
 - **Precedence (1).** AMEP settles a signed deny contradicted by an executed effect as `violated` without needing the chain; the reference verifier asks for the chain first.
 
-**5. Trusting a declared fail mode changes the answer completely.** If the enforcement point declares itself fail-closed, AMEP (spec §10.3) accepts a signed deny as proof that nothing executed: 12/12 denied cases became `preserved` without any effect observation, against 0/12 for the reference verifier. Whether an enforcement point's own declaration should count as evidence is a design decision for any evidence specification.
+**5. A declared fail mode is not evidence that nothing executed.** In AMEP 0.3.0-alpha.1, if the enforcement point declared itself fail-closed, AMEP (spec §10.3) accepted a signed deny as proof that nothing executed: 12/12 denied cases became `preserved` without any effect observation, against 0/12 for the reference verifier. This benchmark raised that as [stafordtituss/amep#15](https://github.com/stafordtituss/amep/issues/15). From 0.3.0-alpha.4, the enforcement point's own declaration never settles it; only an observer's `not_executed` statement does. Re-run with 0.3.0-alpha.4, the fail-closed sensitivity is 0/12, the same as the reference verifier and as AMEP with the fail mode unknown.
 
 ## Method
 
@@ -63,7 +63,7 @@ Neither configuration blocked a valid request.
 
 ## Versions
 
-Cedar 4.15.0 (`@cedar-policy/cedar-wasm`), AMEP JavaScript verifier 0.3.0-alpha.1, Node.js 20 or later. Exact versions are pinned in `package.json` and recorded in `results/results.json`.
+Cedar 4.15.0 (`@cedar-policy/cedar-wasm`), AMEP JavaScript verifier 0.3.0-alpha.4, Node.js 20 or later. Exact versions are pinned in `package.json` and recorded in `results/results.json`.
 
 ## Disclosure and license
 

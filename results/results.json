@@ -3,7 +3,7 @@
   "version": 1,
   "tools": {
     "cedar": "4.15.0",
-    "amep": "0.3.0-alpha.1",
+    "amep": "0.3.0-alpha.4",
     "scenarios": "MAESTRO validation module (vendored)"
   },
   "scenarioCount": 16,
@@ -514,7 +514,7 @@
         "amep": {
           "outcome": "preserved",
           "invariant": "-",
-          "reason": "continuity preserved"
+          "reason": "nothing executed: observer:gateway signed a not_executed call statement"
         },
         "agree": true
       },
@@ -572,7 +572,7 @@
         "amep": {
           "outcome": "preserved",
           "invariant": "-",
-          "reason": "continuity preserved"
+          "reason": "nothing executed: observer:gateway signed a not_executed call statement"
         },
         "agree": true
       },
@@ -691,7 +691,7 @@
         "amep": {
           "outcome": "preserved",
           "invariant": "-",
-          "reason": "continuity preserved"
+          "reason": "nothing executed: observer:gateway signed a not_executed call statement"
         },
         "agree": true
       },
@@ -1071,7 +1071,7 @@
         "amep": {
           "outcome": "preserved",
           "invariant": "-",
-          "reason": "continuity preserved"
+          "reason": "nothing executed: observer:gateway signed a not_executed call statement"
         },
         "agree": true
       },
@@ -1130,7 +1130,7 @@
         "amep": {
           "outcome": "preserved",
           "invariant": "-",
-          "reason": "continuity preserved"
+          "reason": "nothing executed: observer:gateway signed a not_executed call statement"
         },
         "agree": true
       },
@@ -1189,7 +1189,7 @@
         "amep": {
           "outcome": "preserved",
           "invariant": "-",
-          "reason": "continuity preserved"
+          "reason": "nothing executed: observer:gateway signed a not_executed call statement"
         },
         "agree": true
       },
@@ -1244,7 +1244,7 @@
       "question": "Does a signed pre-execution deny, with no observation of the effect, establish that nothing executed?",
       "cases": 12,
       "amepPreservedWhenFailModeUnknown": 0,
-      "amepPreservedWhenFailClosed": 12,
+      "amepPreservedWhenFailClosed": 0,
       "referencePreserved": 0
     }
   }

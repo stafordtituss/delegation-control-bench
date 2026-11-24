@@ -60,9 +60,9 @@ describe('evidence', () => {
     expect(r).toMatchObject({ maestro: 'preserved', amep: { outcome: 'violated', invariant: 'I6' } });
   });
 
-  it('a declared fail-closed enforcement point lets AMEP accept a signed deny without an effect observation', () => {
+  it('a declared fail-closed enforcement point does not let AMEP accept a signed deny without an effect observation', () => {
     const { sensitivity } = runBenchmark().evidence;
-    expect(sensitivity).toMatchObject({ cases: 12, referencePreserved: 0, amepPreservedWhenFailModeUnknown: 0, amepPreservedWhenFailClosed: 12 });
+    expect(sensitivity).toMatchObject({ cases: 12, referencePreserved: 0, amepPreservedWhenFailModeUnknown: 0, amepPreservedWhenFailClosed: 0 });
   });
 
   it('both verifiers report a recorded bypass of an operation escalation as violated', () => {

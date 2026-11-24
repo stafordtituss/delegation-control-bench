@@ -60,9 +60,10 @@ export interface AmepOutcome {
 /**
  * `denyFailMode`: what the packet declares about the enforcement point behind a
  * recorded deny. The scenario evidence does not say, so the benchmark uses
- * `unknown` and reports `closed` separately as a sensitivity check: under AMEP
- * spec 10.3 a verified pre-execution deny from a fail-closed enforcement point
- * settles "nothing executed" without an observer's receipt.
+ * `unknown` and reports `closed` separately as a sensitivity check. Up to AMEP
+ * 0.3.0-alpha.3, spec 10.3 let a verified pre-execution deny from a fail-closed
+ * enforcement point settle "nothing executed" without an observer's record; from
+ * 0.3.0-alpha.4 the declaration never settles it (stafordtituss/amep#15).
  */
 export function verifyWithAmep(
   s: SecurityScenario,
