@@ -51,6 +51,6 @@ declare module '@stafordtituss/amep' {
       phase: string,
       opts?: { id?: string; enforcement?: Record<string, unknown> },
     ): AmepObject;
-    packet(objects: AmepObject[]): Record<string, unknown>;
+    packet(objects: AmepObject[], opts?: { pinnedAdapters?: Record<string, string>; amepVersion?: "0.2" | "0.3" }): Record<string, unknown>;
   };
 }

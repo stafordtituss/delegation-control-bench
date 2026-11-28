@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "4.15.0",
-    "@stafordtituss/amep": "0.3.0-alpha.4",
+    "@stafordtituss/amep": "0.3.4",
     "zod": "3.25.76"
   },
   "devDependencies": {

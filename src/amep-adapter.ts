@@ -15,9 +15,11 @@
  * - decision records -> pre-execution `decision` objects. The enforcement point's fail mode is
  *   not in the scenario evidence, so it is declared `unknown` (see `denyFailMode`).
  * - revocations -> issuer-signed `revocation` objects.
- * - NOT mapped: audience, purpose of the executed effect, principal-level quotas,
- *   revocation-status freshness, credential presentations, and conflicting records.
- *   AMEP has no member for these, so a verdict that depends on them can differ.
+ * - the request's purpose -> the invocation's `declared.purpose`; the effect's recorded purpose -> the
+ *   receipt's `executed.purpose` (AMEP 0.3.4, spec 5.8.3, stafordtituss/amep#14). Packets are AMEP 0.3, so
+ *   every object is signed with version-2 proofs.
+ * - NOT mapped: audience, principal-level quotas, revocation-status freshness, credential
+ *   presentations, and conflicting records. A verdict that depends on them can differ.
  */
 import { Key, keyset, sdk, verifyPacket, type AmepObject, type AmepResult } from '@stafordtituss/amep';
 import type { EvidenceBundle, Mandate, SecurityScenario } from '@/lib/validation/schema';
@@ -50,6 +52,8 @@ function depths(chain: Mandate[]): (number | undefined)[] {
   });
   return out;
 }
+
+const V2 = { v: 2 } as const;   // AMEP 0.3 proofs (spec 12.2)
 
 export interface AmepOutcome {
   outcome: 'preserved' | 'violated' | 'unresolved';
@@ -90,18 +94,18 @@ export function verifyWithAmep(
       i === 0
         ? sdk.mandate(m.id, r.principalId, claimSet, { issuer: m.issuer.id, subjectAgent: m.subject })
         : sdk.delegation(m.id, m.parentId ?? '', claimSet, { delegate: m.subject });
-    objects.push(issuer.sign(obj));
+    objects.push(issuer.sign(obj, V2));
   });
 
   for (const e of s.policy.revocation?.revoked ?? []) {
-    objects.push(issuer.sign(sdk.revocation(e.mandateId, e.revokedAt, { id: `rev-${e.mandateId}` })));
+    objects.push(issuer.sign(sdk.revocation(e.mandateId, e.revokedAt, { id: `rev-${e.mandateId}` }), V2));
   }
 
-  objects.push(host.sign(sdk.interpretation('a-1', 'bench-adapter', '1')));
+  objects.push(host.sign(sdk.interpretation('a-1', 'bench-adapter', '1'), V2));
   const authorityRef = chain.length ? chain[chain.length - 1].id : 'no-mandate';
-  objects.push(
-    host.sign(sdk.invocation('i-1', authorityRef, 'a-1', r.commitAt, r.operation, r.resource, effectClass(r.operation), { actor: r.actor })),
-  );
+  const inv = sdk.invocation('i-1', authorityRef, 'a-1', r.commitAt, r.operation, r.resource, effectClass(r.operation), { actor: r.actor });
+  if (r.purpose) (inv.declared as Record<string, unknown>).purpose = r.purpose;
+  objects.push(host.sign(inv, V2));
 
   if (evidence.decisionRecord) {
     const deny = evidence.decisionRecord.decision === 'deny';
@@ -111,6 +115,7 @@ export function verifyWithAmep(
           id: 'd-1',
           enforcement: deny ? sdk.enforcement('pep:gateway', denyFailMode) : undefined,
         }),
+        V2,
       ),
     );
   }
@@ -118,13 +123,14 @@ export function verifyWithAmep(
   const fx = evidence.effect;
   if (fx.status === 'performed') {
     const body = sdk.effectBody(fx.operation, fx.resource, effectClass(fx.operation), fx.at);
+    if (fx.purpose) body.purpose = fx.purpose;
     const observedBy = evidence.effectSource === 'self_asserted' ? r.actor : 'observer:gateway';
-    objects.push(observer.sign(sdk.effect('e-1', 'i-1', observedBy, 'L1', body)));
+    objects.push(observer.sign(sdk.effect('e-1', 'i-1', observedBy, 'L1', body), V2));
   } else if (fx.status === 'not_performed') {
-    objects.push(observer.sign(sdk.callStatement('c-1', 'i-1', 'observer:gateway', 'not_executed', 0, fx.observedAt)));
+    objects.push(observer.sign(sdk.callStatement('c-1', 'i-1', 'observer:gateway', 'not_executed', 0, fx.observedAt), V2));
   }
 
-  const { verdict, results } = verifyPacket(sdk.packet(objects), keyset(issuer, host, observer));
+  const { verdict, results } = verifyPacket(sdk.packet(objects, { amepVersion: '0.3' }), keyset(issuer, host, observer));
   const forInvocation: AmepResult = results.find((x) => x.id === 'i-1') ?? verdict;
   // Report the packet-level verdict (worst outcome), naming the invariant behind it.
   const worst = verdict.outcome !== 'preserved' ? verdict : forInvocation;

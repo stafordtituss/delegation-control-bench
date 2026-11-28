@@ -31,9 +31,9 @@ Neither configuration blocked a valid request.
 
 **3. Decision logs alone never prove that authority was preserved.** With only policy-decision records and no independent observation of the effect, the reference verifier returned `unresolved` for 16/16 scenarios. AMEP returned `preserved` for none of them, whether or not the enforcement point declared itself fail-closed (finding 5).
 
-**4. Two evidence verifiers agreed on 41 of 56 cases, and every disagreement has one of four causes:**
+**4. Two evidence verifiers agreed on 42 of 56 cases, and every disagreement has one of four causes:**
 - **Unit of evaluation (8 cases).** AMEP judges the *attempted invocation*, so invoking under widened or revoked authority is `violated` even when an observer confirms nothing executed. The reference verifier judges only the *effect*. Both are defensible; a specification has to say which question it answers.
-- **Constraints with no place in the evidence format (4).** AMEP has no member for purpose on the executed effect, audience or credential binding, principal-level counts, or conflicting records. Violations of those are invisible to it.
+- **Constraints with no place in the evidence format (3).** AMEP has no member for audience or credential binding, principal-level counts, or conflicting records. Violations of those are invisible to it. A fourth, purpose on the executed effect, was raised here as [stafordtituss/amep#14](https://github.com/stafordtituss/amep/issues/14) and fixed in AMEP 0.3.4 (spec §5.8.3). The call now declares the purpose it acts for, so DEL-04's `unrecorded-bypass` case is `violated`, as the reference verifier says. AMEP checks the purpose stated, not an unstated intention.
 - **Missing mandate (2).** With no mandate at all, AMEP cannot evaluate and returns `unresolved`.
 - **Precedence (1).** AMEP settles a signed deny contradicted by an executed effect as `violated` without needing the chain; the reference verifier asks for the chain first.
 
@@ -63,7 +63,7 @@ Neither configuration blocked a valid request.
 
 ## Versions
 
-Cedar 4.15.0 (`@cedar-policy/cedar-wasm`), AMEP JavaScript verifier 0.3.0-alpha.4, Node.js 20 or later. Exact versions are pinned in `package.json` and recorded in `results/results.json`.
+Cedar 4.15.0 (`@cedar-policy/cedar-wasm`), AMEP JavaScript verifier 0.3.4, Node.js 20 or later. Exact versions are pinned in `package.json` and recorded in `results/results.json`.
 
 ## Disclosure and license
 
