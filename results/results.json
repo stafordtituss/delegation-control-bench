@@ -3,7 +3,7 @@
   "version": 1,
   "tools": {
     "cedar": "4.15.0",
-    "amep": "0.3.0-alpha.4",
+    "amep": "0.3.4",
     "scenarios": "MAESTRO validation module (vendored)"
   },
   "scenarioCount": 16,
@@ -400,15 +400,15 @@
       },
       "unrecorded-bypass": {
         "cases": 12,
-        "agree": 8,
+        "agree": 9,
         "maestro": {
           "preserved": 0,
           "violated": 11,
           "unresolved": 1
         },
         "amep": {
-          "preserved": 3,
-          "violated": 7,
+          "preserved": 2,
+          "violated": 8,
           "unresolved": 2
         }
       }
@@ -614,12 +614,11 @@
           "delegation.purpose_outside_scope"
         ],
         "amep": {
-          "outcome": "preserved",
-          "invariant": "-",
-          "reason": "continuity preserved"
+          "outcome": "violated",
+          "invariant": "I2",
+          "reason": "purpose outside claims"
         },
-        "agree": false,
-        "difference": "AMEP effect receipts carry no purpose, so a purpose violation is invisible from the effect"
+        "agree": true
       },
       {
         "scenarioId": "DEL-05",

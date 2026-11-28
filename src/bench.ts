@@ -64,7 +64,7 @@ export interface EvidenceRow {
 }
 
 const UNMAPPED: Partial<Record<CheckCode, string>> = {
-  'delegation.purpose_outside_scope': 'AMEP effect receipts carry no purpose, so a purpose violation is invisible from the effect',
+  'delegation.purpose_outside_scope': 'the request states no purpose, so AMEP has none to check against the claims (spec 5.8.3)',
   'delegation.audience_outside_scope': 'AMEP claims have no audience member',
   'credential.audience_mismatch': 'credential presentations are outside AMEP’s scope',
   'credential.nonce_mismatch': 'credential presentations are outside AMEP’s scope',
